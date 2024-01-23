@@ -1,9 +1,13 @@
 import Link from 'next/link';
 import classes from './page.module.css';
+import MealsGrid from '@/components/meals/meals-grid';
+import {getMeals} from '@/dataFetch/meals';
 
 
 
 export default function Meals() {
+  const meals =  getMeals();
+    console.log(meals)
     return <>
     <header className={classes.header}>
       <h1>
@@ -21,6 +25,7 @@ export default function Meals() {
       </h1>
     </header>
       <main className={classes.main}>
+        <MealsGrid meals={meals}/>
       </main>
     </>
   }
