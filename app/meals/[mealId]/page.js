@@ -1,35 +1,30 @@
-import Link from "next/link";
+import Image from 'next/image';
+import classes from './page.module.css'
+import { getMeal } from '@/dataFetch/meals';
 
 export default function SpecialMeal({params}) {
+  const meal = getMeal(params.mealId)
+
+  meal.instructions = meal.instructions.replace(/\n/g, '<br />')
+
   return (
     <>
+    <header className={classes.header}>
+      <div className={classes.image}>
+      <Image src={meal.image} alt={meal.title} fill/>
+      </div>
+      <div className={classes.headerText}>
+        <h1>{meal.title}</h1>
+        <p className={classes.creator}>
+          by <a href={`mailto:${meal.creator_email}`}>{meal.creator}</a>
+        </p>
+        <p className={classes.summary}>{meal.summary}</p>
+      </div>
+    </header>
     <main>
-      <h1 style={{ color: 'white', textAlign: 'center' }}>
-        Time to get started!
-      </h1>
-      <h2>
-        {params.mealId}
-      </h2>
-
-
-    <ul>
-    <li>
-
-<Link href="/" style={{ color: 'white', textAlign: 'center' }}>Home</Link>
-
-</li>
-    <li>
-    <Link href="/meals" style={{ color: 'white', textAlign: 'center' }}>Meals</Link>
-    </li>
-    <li>
-    <Link href="/meals/share" style={{ color: 'white', textAlign: 'center' }}>Share</Link>
-    </li>
-    <li>
-    <Link href="/community"style={{ color: 'white', textAlign: 'center' }}> Community</Link>
-    </li>
-
-
-    </ul>
+      <p className={classes.instructions} dangerouslySetInnerHTML={{
+        __html: meal.instructions,
+      }}></p>
     </main>
 
     </>
