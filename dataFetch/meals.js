@@ -1,11 +1,11 @@
-import fs from 'node:fs'
+
 import sql from 'better-sqlite3'
 import slugify from 'slugify';
 import xss from 'xss';
 import { S3 } from '@aws-sdk/client-s3';
 // establish connection with s3 and db
 const s3 = new S3({
-    region: 'us-east-1'
+    region: 'us-east-2'
   });
 const db = sql('meals.db')
 // can now tap into db to preform actions on db
